@@ -13,13 +13,22 @@ var homeView = document.querySelector(".home-view");
 var formView = document.querySelector(".form-view");
 var savedView = document.querySelector(".saved-view");
 
-  // Buttons:
+  // Controls:
 
 var btnHome = document.querySelector(".home-button");
 var btnRandomCover = document.querySelector(".random-cover-button");
 var btnSaveCover = document.querySelector(".save-cover-button");
 var btnViewSaved = document.querySelector(".view-saved-button");
 var btnNewCover = document.querySelector(".make-new-button");
+
+  // Form:
+
+var form = document.querySelector("form");
+var btnForm = document.querySelector(".create-new-book-button");
+var inputCover = document.querySelector(".user-cover");
+var inputTitle = document.querySelector(".user-title");
+var inputDesc1 = document.querySelector(".user-desc1");
+var inputDesc2 = document.querySelector(".user-desc2");
 
 
 // We've provided a few variables below
@@ -41,6 +50,8 @@ btnHome.addEventListener("click", displayHome);
 btnNewCover.addEventListener("click", displayMakeOwnCover);
 
 btnViewSaved.addEventListener("click", displaySavedView);
+
+btnForm.addEventListener("click", submitForm);
 
 // Create your event handlers and other functions here 👇
 
@@ -85,6 +96,17 @@ function displaySavedView() {
   show(btnHome);
   hide(btnRandomCover);
   hide(btnSaveCover);
+}
+
+function submitForm(e) {
+  e.preventDefault();
+  currentCover = createCover(inputCover.value, inputTitle.value, inputDesc1.value, inputDesc2.value);
+  covers.push(inputCover.value);
+  titles.push(inputTitle.value);
+  descriptors.push(inputDesc1.value);
+  descriptors.push(inputDesc2.value);
+  displayHome();
+  updateDisplay();
 }
 
 // Helpful functions
