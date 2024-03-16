@@ -1,19 +1,20 @@
 // Create variables targetting the relevant DOM elements here 👇
 
-  // Cover Elements:
+// Cover Elements:
 
 var cover = document.querySelector(".cover-image");
 var title = document.querySelector(".cover-title");
 var tagline1 = document.querySelector(".tagline-1");
 var tagline2 = document.querySelector(".tagline-2");
 
-  // Views:
+// Views:
 
 var homeView = document.querySelector(".home-view");
 var formView = document.querySelector(".form-view");
 var savedView = document.querySelector(".saved-view");
+var savedCoversDisplay = document.querySelector(".saved-covers-section");
 
-  // Controls:
+// Controls:
 
 var btnHome = document.querySelector(".home-button");
 var btnRandomCover = document.querySelector(".random-cover-button");
@@ -21,7 +22,7 @@ var btnSaveCover = document.querySelector(".save-cover-button");
 var btnViewSaved = document.querySelector(".view-saved-button");
 var btnNewCover = document.querySelector(".make-new-button");
 
-  // Form:
+// Form:
 
 var form = document.querySelector("form");
 var btnForm = document.querySelector(".create-new-book-button");
@@ -32,9 +33,7 @@ var inputDesc2 = document.querySelector(".user-desc2");
 
 
 // We've provided a few variables below
-var savedCovers = [
-  createCover("http://3.bp.blogspot.com/-iE4p9grvfpQ/VSfZT0vH2UI/AAAAAAAANq8/wwQZssi-V5g/s1600/Do%2BNot%2BForsake%2BMe%2B-%2BImage.jpg", "Sunsets and Sorrows", "sunsets", "sorrows")
-];
+var savedCovers = [];
 var currentCover;
 
 
@@ -42,7 +41,7 @@ var currentCover;
 
 btnRandomCover.addEventListener("click", () => {
   createRandomCover();
-  updateDisplay();
+  renderMain();
 });
 
 btnHome.addEventListener("click", displayHome);
@@ -52,6 +51,8 @@ btnNewCover.addEventListener("click", displayMakeOwnCover);
 btnViewSaved.addEventListener("click", displaySavedView);
 
 btnForm.addEventListener("click", submitForm);
+
+btnSaveCover.addEventListener("click", saveCover);
 
 // Create your event handlers and other functions here 👇
 
@@ -64,11 +65,36 @@ function createRandomCover() {
   return currentCover;
 }
 
-function updateDisplay() {
+function saveCover() {
+  var isUnique = true;
+  for (let i = 0; i < savedCovers.length; i++) {
+    if (savedCovers[i].id === currentCover.id) {
+      isUnique = false;
+    }
+  }
+  if (isUnique) {
+    savedCovers.push(currentCover);
+  }
+  renderSaved();
+}
+
+function renderMain() {
   cover.src = currentCover.coverImg;
   title.innerText = currentCover.title;
   tagline1.innerText = currentCover.tagline1;
   tagline2.innerText = currentCover.tagline2;
+}
+
+function renderSaved() {
+  savedCoversDisplay.innerHTML = "";
+  for (var i = 0; i < savedCovers.length; i++) {
+    savedCoversDisplay.innerHTML += `
+    <section class="mini-cover">
+      <img src=${savedCovers[i].coverImg} class="mini-cover">
+      <h2 class="cover-title">${savedCovers[i].title}</h2>
+      <h3 class="tagline">A tale of <span class="tagline-1">${savedCovers[i].tagline1}</span> and <span class="tagline-2">${savedCovers[i].tagline2}</span></h3>
+    </section>`
+  }
 }
 
 function displayHome() {
@@ -96,6 +122,7 @@ function displaySavedView() {
   show(btnHome);
   hide(btnRandomCover);
   hide(btnSaveCover);
+  renderSaved();
 }
 
 function submitForm(e) {
@@ -106,8 +133,10 @@ function submitForm(e) {
   descriptors.push(inputDesc1.value);
   descriptors.push(inputDesc2.value);
   displayHome();
-  updateDisplay();
+  renderMain();
 }
+
+
 
 // Helpful functions
 
@@ -137,4 +166,4 @@ function show(element) {
 // Run on load
 
 createRandomCover();
-updateDisplay();
+renderMain();
