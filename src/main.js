@@ -54,6 +54,8 @@ btnForm.addEventListener("click", submitForm);
 
 btnSaveCover.addEventListener("click", saveCover);
 
+savedCoversDisplay.addEventListener("dblclick", deleteSaved);
+
 // Create your event handlers and other functions here 👇
 
 function createRandomCover() {
@@ -95,6 +97,15 @@ function renderSaved() {
       <h3 class="tagline">A tale of <span class="tagline-1">${savedCovers[i].tagline1}</span> and <span class="tagline-2">${savedCovers[i].tagline2}</span></h3>
     </section>`
   }
+}
+
+function deleteSaved(e) {
+  for (var i = 0; i < savedCovers.length; i++) {
+    if (savedCovers[i].id === +e.target.parentNode.id) {
+      savedCovers.splice(i, 1);
+    }
+  }
+  renderSaved();
 }
 
 function displayHome() {
