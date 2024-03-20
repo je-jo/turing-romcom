@@ -2,7 +2,7 @@
 
 ### Abstract:
 
-App that generates romance novel covers.
+App that generates romance novel covers, either random or through user input.
 
 This is a learning project from Turing School Module 1. The project spec & rubric can be found [here](https://frontend.turing.edu/projects/module-1/romcom-pair-v2.html).
 
@@ -11,13 +11,15 @@ This is a learning project from Turing School Module 1. The project spec & rubri
 [Link](https://je-jo.github.io/turing-romcom/)
 
 ### Preview of App:
-[//]: <> (Provide ONE gif or screenshot of your application - choose the "coolest" piece of functionality to show off.)
+
+![](screenshot.png)
 
 ### Learning Goals:
 
 DOM Manipulation.
 
 ### Wins + Challenges:
-[//]: <> (What are 2-3 wins you have from this project? What were some challenges you faced - and how did you get over them?)
+
+Learned to apply event delegation and add event listener to parent container instead of every element.
 
 
